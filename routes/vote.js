@@ -5,22 +5,23 @@ var router = express.Router();
 const auth = require('../middleware/auth');
 const voteCtrl = require('../controllers/vote');
 
-/* GET get Sondage*/
+/* GET get Vote*/
 router.get('/get/:id', voteCtrl.getById)
 
-/* GET get all Sondage*/
+/* GET get all Vote*/
 router.get('/get', voteCtrl.getAll)
 /*GET by User Id*/
 router.get('/getByUserId', voteCtrl.getByUserId)
-/*GET by Sondage Id*/
-router.get('/getBySondageId', voteCtrl.getBySondageId)
+/*GET by Vote Id*/
+router.get('/getByVoteId', voteCtrl.getBySondageId)
 
-/* create  Sondage */
+/* create  Vote */
 router.post('/create'  , voteCtrl.createVote);
-  /* Delete Sondage */
+  /* Delete Vote */
 router.delete('/delete/:id', auth , voteCtrl.deleteVote);
-/*Update Sondage*/
+/*Update Vote*/
 router.put('/update/:id' , voteCtrl.updateVote);
-
+/* GET get Stats Vote*/
+router.get('/stats', voteCtrl.getVotesStats)
 
 module.exports = router;

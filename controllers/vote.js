@@ -1,5 +1,4 @@
 const Vote = require('../models/vote');
-const cron = require("node-cron");
 
 /** Get All Votes */
 //done
@@ -71,6 +70,7 @@ exports.createVote = (req, res, next) => {
 	Vote.find({ sondage_id: req.body.sondage_id, user_id: req.body.user_id}).populate('user_id').populate('sondage_id').then(votes => {
 		if(votes.length != 0 || count > 4){
 			console.log("Vous avez voté", votes);
+			res.status(400).json({ err: err });
 		}
 		else {
 			var vote = new Vote(req.body);
@@ -135,3 +135,41 @@ exports.updateVote = (req, res, next) => {
       }
     );
 }
+
+
+exports.getVotesStats = (req, res, next) => {
+	Vote.find({"vote":true, "sondage_id" :req.body.sondage_id}).populate('sondage_id user_id').then(sondages => {
+		res.send(sondages);
+	}).catch(err => {
+		console.log('ERROR', err)
+		res.status(401).json({
+			error: err
+		});
+	})
+}
+
+exports.getVotesStats2 = (req, res, next) => {
+    Vote.find().populate('sondage_id user_id').then(data => {
+       var  stats = [];
+       var total = 0;
+        data.forEach((user) => {
+            if (user.pack != null){
+                total ++ ;
+                index = stats.findIndex(x => x.pack ==user.pack.pack_name);
+                if (index >= 0){
+               stats[ index ].count ++ ;
+               stats[ index ].users.push(user) ;
+
+            } else 
+            stats.push({pack : user.pack.pack_name, count : 1, users :[user]});
+        }
+            
+        })
+        res.send({stats,total});
+      }).catch(err => {
+        console.log('ERROR', err)
+        res.status(401).json({
+          error: err
+        });
+      });
+    }
