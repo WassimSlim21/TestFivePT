@@ -138,38 +138,37 @@ exports.updateVote = (req, res, next) => {
 
 
 exports.getVotesStats = (req, res, next) => {
+	var votePositive = [];
+	var voteNegative = [];
+	var total = 0;
+	var  stats = [];
+
 	Vote.find({"vote":true, "sondage_id" :req.body.sondage_id}).populate('sondage_id user_id').then(sondages => {
-		res.send(sondages);
+		votePositive = sondages;
 	}).catch(err => {
 		console.log('ERROR', err)
 		res.status(401).json({
 			error: err
 		});
 	})
+	Vote.find({"vote":false, "sondage_id" :req.body.sondage_id}).populate('sondage_id user_id').then(sondages => {
+		voteNegative = sondages;
+
+	}).catch(err => {
+		console.log('ERROR', err)
+		res.status(401).json({
+			error: err
+		});
+	})
+	Vote.find({"sondage_id" :req.body.sondage_id}).populate('sondage_id user_id').then(sondages => {
+		total = sondages.length;
+	}).catch(err => {
+		console.log('ERROR', err)
+		res.status(401).json({
+			error: err
+		});
+	})
+	stats.push({voteP : votePositive, voteN : voteNegative, nbPositive:votePositive.length, nbNegative:voteNegative.length});
+	res.send({stats,total});
+
 }
-
-exports.getVotesStats2 = (req, res, next) => {
-    Vote.find().populate('sondage_id user_id').then(data => {
-       var  stats = [];
-       var total = 0;
-        data.forEach((user) => {
-            if (user.pack != null){
-                total ++ ;
-                index = stats.findIndex(x => x.pack ==user.pack.pack_name);
-                if (index >= 0){
-               stats[ index ].count ++ ;
-               stats[ index ].users.push(user) ;
-
-            } else 
-            stats.push({pack : user.pack.pack_name, count : 1, users :[user]});
-        }
-            
-        })
-        res.send({stats,total});
-      }).catch(err => {
-        console.log('ERROR', err)
-        res.status(401).json({
-          error: err
-        });
-      });
-    }
