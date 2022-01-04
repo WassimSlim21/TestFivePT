@@ -1,0 +1,49 @@
+
+Use case diagram :
+sprint 1 + 2 mabaathhom
+Ammel generalisation 
+Update user not user pack 
+zid les sociéte
+lister twali consulter 
+zid chercher 
+el ta9sim khalih niveau bas 
+evite kelmet gerer !
+Kpeiz mahich acteur howa 
+
+
+Diagram de classe :
+na9es 7ot ken eli 7achtek bih 
+Dashboard > benchmark , social account mahich heritage .(twali agregation)
+contraint OCL benensba lel benchmarks , social accounts
+
++ Diagram D'activité fih el migration kifech saret 
++ Hawel 9assem kol chay par des packages 
+
+
+Digrame de sequence (system) : 
+ma3jebhech mellekher khater scrum zeyed diagram de sequence systeme 
+chouf el cours eli baathetou al email bech tefhem kifech lezem ikoun 
+
+
+------------------------------------------------------------
+Chapitre 3 :
+
+Specification fonction 
+yabda beli fama 2 sprint (tout les US)
+Usecase diagram
+backlog des sprint 
+kaa3bet user story taamel maah les tasks mteeou 
+maquette ! 
+
+Conception
+conception database 
+diagram d'activité 
+diagram de sequence 
+
+Realistation : 
+(des imprime ecran )
+(retrospective des sprints) 
+--------------------------------------------------------
+
+
+
